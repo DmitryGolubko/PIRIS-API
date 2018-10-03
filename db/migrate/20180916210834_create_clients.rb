@@ -16,9 +16,6 @@ class CreateClients < ActiveRecord::Migration[5.1]
       t.string :home_phone, null: false, default: ''
       t.string :mobile_phone, null: false, default: ''
       t.string :email, null: false, default: ''
-      t.integer :civil_status, null: false, default: 0
-      t.string :country, null: false, default: ''
-      t.boolean :disabled, null: false, default: false
       t.boolean :retired, null: false, default: false
       t.integer :salary, null: false, default: 0
       t.boolean :military, null: false, default: false

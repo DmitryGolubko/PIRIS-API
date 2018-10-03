@@ -1,87 +1,52 @@
-class CitiesController < ApplicationController
-  before_action :set_city, only: [:show, :edit, :update, :destroy]
-  skip_before_action :verify_authenticity_token
+class CitiesController < BaseController
+  before_action :set_city, only: %i[show update destroy]
 
   # GET /cities
-  # GET /cities.json
   def index
     @cities = City.all
-    respond_to do |format|
-      format.html { render :index }
-      format.json { render json: @cities }
-    end
+    render json: @cities
   end
 
   # GET /cities/1
-  # GET /cities/1.json
   def show
-    respond_to do |format|
-      format.html { render :show }
-      format.json { render json: @city }
-    end
-  end
-
-  # GET /cities/new
-  def new
-    @city = City.new
-  end
-
-  # GET /cities/1/edit
-  def edit
-    respond_to do |format|
-      format.html { render :edit }
-      format.json { render json: @city }
-    end
+    render json: @city
   end
 
   # POST /cities
-  # POST /cities.json
   def create
-    @city = City.new(city_params)
-
-    respond_to do |format|
-      if @city.save
-        format.html { redirect_to @city, notice: 'City was successfully created.' }
-        format.json { render :show, status: :created, location: @city }
-      else
-        format.html { render :new }
-        format.json { render json: @city.errors, status: :unprocessable_entity }
-      end
-    end
+    @city = City.create(city_params)
+    create_or_update_response
   end
 
   # PATCH/PUT /cities/1
-  # PATCH/PUT /cities/1.json
   def update
-    respond_to do |format|
-      if @city.update(city_params)
-        format.html { redirect_to @city, notice: 'City was successfully updated.' }
-        format.json { render :show, status: :ok, location: @city }
-      else
-        format.html { render :edit }
-        format.json { render json: @city.errors, status: :unprocessable_entity }
-      end
-    end
+    @city.update(city_params)
+    create_or_update_response
   end
 
   # DELETE /cities/1
-  # DELETE /cities/1.json
   def destroy
     @city.destroy
-    respond_to do |format|
-      format.html { redirect_to cities_url, notice: 'City was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render json: @city
+  rescue ActiveRecord::InvalidForeignKey => e
+    render_error(:unprocessable_entity, "Can't delete city, please delete users before.")
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_city
-      @city = City.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def city_params
-      params.require(:city).permit(:name)
+  def set_city
+    @city = City.find(params[:id])
+  end
+
+  def city_params
+    params.require(:city).permit(:name)
+  end
+
+  def create_or_update_response
+    if @city.valid?
+      render json: @city
+    else
+      render json: @city.errors, status: :unprocessable_entity
     end
+  end
 end
