@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :disabilities
   resources :countries
   resources :civil_statuses
   resources :clients

@@ -43,4 +43,7 @@ class Client < ApplicationRecord
   validates_uniqueness_of :passport_number, scope: :passport_series
   validates :email, :home_phone, :mobile_phone, uniqueness: true, allow_blank: true
   belongs_to :city
+  belongs_to :country
+  belongs_to :civil_status
+  belongs_to :disability
 end
