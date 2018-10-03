@@ -36,6 +36,7 @@ gem 'simple_form'
 gem 'simple-form-datepicker'
 gem 'active_model_serializers', '~> 0.10.7'
 gem 'validates_timeliness'
+gem 'country_select', '~> 3.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

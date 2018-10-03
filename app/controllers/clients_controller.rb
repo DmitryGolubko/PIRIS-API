@@ -87,7 +87,7 @@ class ClientsController < ApplicationController
                                      :passport_series, :passport_number, :place_of_issue,
                                      :date_of_issue, :id_number, :birth_place, :address,
                                      :civil_status, :country, :disability, :retirement,
-                                     :military,:home_phone, :mobile_phone, :email,
+                                     :military, :home_phone, :mobile_phone, :email,
                                      :disabled, :retired, :salary, :city_id)
     end
 end
