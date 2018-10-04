@@ -29,7 +29,7 @@
 #  disability_id   :bigint(8)        not null
 #
 class ClientSerializer < ActiveModel::Serializer
-  attributes :id, :surname, :patronymic, :birthdate, :sex, :passport_series,
+  attributes :id, :surname, :name, :patronymic, :birthdate, :sex, :passport_series,
              :passport_number, :place_of_issue, :date_of_issue, :id_number,
              :birth_place, :address, :home_phone, :mobile_phone, :email,
              :retired, :salary, :military, :country, :disability,

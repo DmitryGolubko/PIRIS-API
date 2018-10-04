@@ -32,7 +32,7 @@
 class Client < ApplicationRecord
   validates_presence_of :surname, :name, :patronymic, :birthdate,
                         :passport_series, :passport_number, :place_of_issue,
-                        :date_of_issue, :id_number, :birth_place, :address
+                        :date_of_issue, :id_number, :birth_place, :address, :sex
   validates :salary, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates_date :birthdate, :date_of_issue, on_or_before: :today
   validates_format_of :passport_number, with: /\A[0-9]{7}\Z/
