@@ -38,6 +38,7 @@ gem 'active_model_serializers', '~> 0.10.7'
 gem 'validates_timeliness'
 gem 'country_select', '~> 3.1'
 gem 'rack-cors', require: 'rack/cors'
+gem 'enum_help'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -46,6 +47,7 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'rubocop', '~> 0.59.2'
+  gem 'pry'
 end
 
 group :development do

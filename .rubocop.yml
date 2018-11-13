@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
-    - 'db/**/*'
+    - 'db/migrate/*'
+    - 'db/schema.rb'
     - 'bin/**/*'
     - 'Gemfile'
     - 'test/**/*'

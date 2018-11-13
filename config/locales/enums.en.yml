@@ -1,0 +1,15 @@
+en:
+  enums:
+    deposit_type:
+      revocable:
+        revocable: 'Отзывной'
+        non_revocable: 'Безотзывной'
+    account:
+      account_type:
+        deposit: 'Депозит'
+        credit: 'Credit'
+        cashbox: 'Касса'
+        development_fund: 'Фонд развития'
+      activity:
+        active: 'Активный'
+        passive: 'Пассивный'

@@ -7,7 +7,7 @@
 #  name            :string           default(""), not null
 #  patronymic      :string           default(""), not null
 #  birthdate       :date             not null
-#  sex             :integer          default(0), not null
+#  sex             :integer          default("male"), not null
 #  passport_series :string           default(""), not null
 #  passport_number :string           default(""), not null
 #  place_of_issue  :string           default(""), not null
@@ -28,6 +28,7 @@
 #  country_id      :bigint(8)        not null
 #  disability_id   :bigint(8)        not null
 #
+
 class ClientSerializer < ActiveModel::Serializer
   attributes :id, :surname, :name, :patronymic, :birthdate, :sex, :passport_series,
              :passport_number, :place_of_issue, :date_of_issue, :id_number,

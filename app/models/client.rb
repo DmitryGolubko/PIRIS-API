@@ -7,7 +7,7 @@
 #  name            :string           default(""), not null
 #  patronymic      :string           default(""), not null
 #  birthdate       :date             not null
-#  sex             :integer          default(0), not null
+#  sex             :integer          default("male"), not null
 #  passport_series :string           default(""), not null
 #  passport_number :string           default(""), not null
 #  place_of_issue  :string           default(""), not null
@@ -30,9 +30,8 @@
 #
 
 class Client < ApplicationRecord
-  validates_presence_of :surname, :name, :patronymic, :birthdate,
-                        :passport_series, :passport_number, :place_of_issue,
-                        :date_of_issue, :id_number, :birth_place, :address, :sex
+  validates_presence_of :surname, :name, :patronymic, :birthdate, :passport_series, :passport_number, :place_of_issue,
+    :date_of_issue, :id_number, :birth_place, :address, :sex
   validates :salary, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates_date :birthdate, :date_of_issue, on_or_before: :today
   validates_format_of :passport_number, with: /\A[0-9]{7}\Z/
@@ -46,5 +45,11 @@ class Client < ApplicationRecord
   belongs_to :country
   belongs_to :civil_status
   belongs_to :disability
+  has_one :deposit_contract
+  has_many :accounts
   enum sex: %w[male female]
+
+  def full_name
+    "#{surname.capitalize} #{name.capitalize} #{patronymic.capitalize}"
+  end
 end

@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181003152344) do
+ActiveRecord::Schema.define(version: 20181111153903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.bigint "client_id"
+    t.bigint "currency_id"
+    t.string "name"
+    t.string "number"
+    t.string "code"
+    t.integer "activity"
+    t.integer "account_type"
+    t.decimal "debit", precision: 15, scale: 2, default: "0.0"
+    t.decimal "credit", precision: 15, scale: 2, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_accounts_on_client_id"
+    t.index ["currency_id"], name: "index_accounts_on_currency_id"
+  end
 
   create_table "cities", force: :cascade do |t|
     t.string "name"
@@ -56,6 +72,42 @@ ActiveRecord::Schema.define(version: 20181003152344) do
 
   create_table "countries", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "currencies", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+  end
+
+  create_table "deposit_contracts", force: :cascade do |t|
+    t.bigint "client_id"
+    t.bigint "deposit_id"
+    t.date "starts_at"
+    t.date "ends_at"
+    t.integer "status", default: 0
+    t.decimal "sum", precision: 15, scale: 2, default: "0.0"
+    t.integer "percent_account_id"
+    t.integer "current_account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_deposit_contracts_on_client_id"
+    t.index ["deposit_id"], name: "index_deposit_contracts_on_deposit_id"
+  end
+
+  create_table "deposit_types", force: :cascade do |t|
+    t.string "name"
+    t.integer "revocable"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "deposits", force: :cascade do |t|
+    t.bigint "deposit_type_id"
+    t.bigint "currency_id"
+    t.integer "duration"
+    t.decimal "percent", precision: 6, scale: 2
+    t.index ["currency_id"], name: "index_deposits_on_currency_id"
+    t.index ["deposit_type_id"], name: "index_deposits_on_deposit_type_id"
   end
 
   create_table "disabilities", force: :cascade do |t|
