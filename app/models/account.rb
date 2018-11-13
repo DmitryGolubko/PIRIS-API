@@ -34,6 +34,16 @@ class Account < ApplicationRecord
     foreign_key: :current_account_id,
     inverse_of: :current_account
 
+  has_many :transaction_through_source,
+    class_name: 'Transaction',
+    foreign_key: :source_account_id,
+    inverse_of: :source_account
+
+  has_many :transaction_through_destination,
+    class_name: 'Transaction',
+    foreign_key: :destination_account_id,
+    inverse_of: :destination_account
+
   enum account_type: %w[deposit credit cashbox development_fund]
 
   enum activity: %w[active passive]
