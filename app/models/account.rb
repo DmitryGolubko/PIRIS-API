@@ -10,8 +10,8 @@
 #  code         :string
 #  activity     :integer
 #  account_type :integer
-#  debit        :decimal(15, 2)   default(0.0)
-#  credit       :decimal(15, 2)   default(0.0)
+#  debit        :decimal(25, 10)  default(0.0)
+#  credit       :decimal(25, 10)  default(0.0)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #

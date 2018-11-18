@@ -1,7 +1,7 @@
 class DepositContractsController < ApplicationController
   # POST /deposit_contracts
   def create
-    @deposit_contract = DepositContractService.create(deposit_contract_params)
+    @deposit_contract, @transactions = DepositContractService.create(deposit_contract_params)
     create_or_update_response
   end
 
@@ -13,7 +13,7 @@ class DepositContractsController < ApplicationController
 
   def create_or_update_response
     if @deposit_contract.valid?
-      render json: @deposit_contract
+      render json: { deposit_contract: @deposit_contract, transactions: @transactions }
     else
       render json: @deposit_contract.errors, status: :unprocessable_entity
     end

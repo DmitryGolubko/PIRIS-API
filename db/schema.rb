@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181113195510) do
+ActiveRecord::Schema.define(version: 20181118121907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20181113195510) do
     t.string "code"
     t.integer "activity"
     t.integer "account_type"
-    t.decimal "debit", precision: 15, scale: 2, default: "0.0"
-    t.decimal "credit", precision: 15, scale: 2, default: "0.0"
+    t.decimal "debit", precision: 25, scale: 10, default: "0.0"
+    t.decimal "credit", precision: 25, scale: 10, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_accounts_on_client_id"
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(version: 20181113195510) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.decimal "sum", precision: 15, scale: 2, default: "0.0"
+    t.decimal "sum", precision: 25, scale: 10, default: "0.0"
     t.integer "source_account_id"
     t.integer "destination_account_id"
     t.datetime "created_at", null: false

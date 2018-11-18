@@ -8,5 +8,8 @@ Rails.application.routes.draw do
   resources :deposit_types
   resources :deposits
   resources :deposit_contracts, only: %i[create show]
+  namespace :bank do
+    get 'close_day'
+  end
   root 'clients#index'
 end

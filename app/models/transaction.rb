@@ -3,7 +3,7 @@
 # Table name: transactions
 #
 #  id                     :bigint(8)        not null, primary key
-#  sum                    :decimal(15, 2)   default(0.0)
+#  sum                    :decimal(25, 10)  default(0.0)
 #  source_account_id      :integer
 #  destination_account_id :integer
 #  created_at             :datetime         not null

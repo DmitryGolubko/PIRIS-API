@@ -15,12 +15,10 @@
 #  updated_at         :datetime         not null
 #
 
-class DepositContract < ApplicationRecord
+class DepositContractSerializer < ActiveModel::Serializer
+  attributes :id, :starts_at, :ends_at, :status, :sum
   belongs_to :client
   belongs_to :deposit
-  belongs_to :current_account, class_name: 'Account', optional: true
-  belongs_to :percent_account, class_name: 'Account', optional: true
-
-  validates_presence_of :client, :deposit, :starts_at, :sum
-  enum status: %w[opened closed]
+  belongs_to :current_account
+  belongs_to :percent_account
 end
