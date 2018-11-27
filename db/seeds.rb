@@ -10,6 +10,8 @@ Deposit.destroy_all
 DepositType.destroy_all
 Currency.destroy_all
 Account.destroy_all
+Credit.destroy_all
+CreditType.destroy_all
 
 DepositType.create!([{ name: 'Альфа-Фикс', revocable: 'revocable' },
                      { name: 'Альфа-Ракета', revocable: 'non_revocable' }])
@@ -48,4 +50,22 @@ currencies.each_with_index do |currency, index|
                      number: "#{Account::ACCOUNT_NUMBER_CODES[:cashbox]}0000000#{index}1",
                      code: Account::ACCOUNT_NUMBER_CODES[:cashbox],
                      activity: :active, account_type: :cashbox }])
+end
+
+CreditType.create!([{ name: 'Кредит наличными' },
+                    { name: 'Альфа-народный' }])
+
+[24, 36, 48, 60, 72].each do |duration|
+  Credit.create!([{ credit_type: CreditType.find_by(name: 'Кредит наличными'), currency: Currency.find_by(code: 'BYN'),
+                    duration: duration, percent: 29.9, max_amount: 1000 }])
+end
+
+[36, 48, 60].each do |duration|
+  Credit.create!([{ credit_type: CreditType.find_by(name: 'Кредит наличными'), currency: Currency.find_by(code: 'BYN'),
+                    duration: duration, percent: 27.9, max_amount: 40_000 }])
+end
+
+[48, 60].each do |duration|
+  Credit.create!([{ credit_type: CreditType.find_by(name: 'Альфа-народный'), currency: Currency.find_by(code: 'BYN'),
+                    duration: duration, percent: 20, max_amount: 5000 }])
 end

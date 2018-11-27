@@ -7,8 +7,7 @@ class DepositContractService
     deposit_contract.ends_at = deposit_contract.starts_at + deposit.duration.months
     deposit_contract.assign_attributes(current_account: build_account(deposit_contract, deposit, client, 'Current account'),
                                        percent_account: build_account(deposit_contract, deposit, client, 'Percent account'))
-    deposit_contract.save
-    transactions = make_transactions(deposit_contract, deposit)
+    transactions = make_transactions(deposit_contract, deposit) if deposit_contract.save
     [deposit_contract, transactions]
   end
 
@@ -23,9 +22,9 @@ class DepositContractService
     transactions = []
     transactions << Transaction.create!(sum: deposit_contract.sum, destination_account: cashbox)
     transactions << Transaction.create!(sum: deposit_contract.sum, source_account: cashbox,
-                                       destination_account: deposit_contract.current_account)
+                                        destination_account: deposit_contract.current_account)
     transactions << Transaction.create!(sum: deposit_contract.sum, source_account: deposit_contract.current_account,
-                                       destination_account: development_fund)
+                                        destination_account: development_fund)
   end
 
   def self.close(deposit_contract, transactions)

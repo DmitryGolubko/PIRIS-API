@@ -11,7 +11,5 @@
 #
 
 class TransactionSerializer < ActiveModel::Serializer
-  attributes :id, :sum
-  belongs_to :source_account
-  belongs_to :destination_account
+  attributes :id, :sum, :source_account_id, :destination_account_id, :created_at
 end

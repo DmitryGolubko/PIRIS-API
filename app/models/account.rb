@@ -34,6 +34,15 @@ class Account < ApplicationRecord
     foreign_key: :current_account_id,
     inverse_of: :current_account
 
+  has_one :credit_contract_through_percent,
+    class_name: 'CreditContract',
+    foreign_key: :percent_account_id,
+    inverse_of: :percent_account
+  has_one :credit_contract_through_current,
+    class_name: 'CreditContract',
+    foreign_key: :current_account_id,
+    inverse_of: :current_account
+
   has_many :transaction_through_source,
     class_name: 'Transaction',
     foreign_key: :source_account_id,

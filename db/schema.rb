@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181118121907) do
+ActiveRecord::Schema.define(version: 20181126212931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,38 @@ ActiveRecord::Schema.define(version: 20181118121907) do
 
   create_table "countries", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "credit_contracts", force: :cascade do |t|
+    t.bigint "client_id"
+    t.bigint "credit_id"
+    t.date "starts_at"
+    t.date "ends_at"
+    t.integer "status", default: 0
+    t.decimal "sum", precision: 15, scale: 2, default: "0.0"
+    t.integer "percent_account_id"
+    t.integer "current_account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_credit_contracts_on_client_id"
+    t.index ["credit_id"], name: "index_credit_contracts_on_credit_id"
+  end
+
+  create_table "credit_types", force: :cascade do |t|
+    t.string "name"
+    t.integer "pay_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "credits", force: :cascade do |t|
+    t.bigint "credit_type_id"
+    t.bigint "currency_id"
+    t.integer "duration"
+    t.decimal "percent", precision: 6, scale: 2
+    t.integer "max_amount"
+    t.index ["credit_type_id"], name: "index_credits_on_credit_type_id"
+    t.index ["currency_id"], name: "index_credits_on_currency_id"
   end
 
   create_table "currencies", force: :cascade do |t|
