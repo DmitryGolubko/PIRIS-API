@@ -18,6 +18,6 @@ class Credit < ApplicationRecord
   validates :duration, numericality: { only_integer: true, greater_than: 0 }
 
   def name
-    "#{currency.code.upcase}, #{credit_type.name}: #{percent}% #{duration} мес."
+    "#{currency.code.upcase}, #{credit_type.name}: #{percent}% #{duration} мес., до #{max_amount} #{currency.code}"
   end
 end

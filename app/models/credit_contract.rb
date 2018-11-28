@@ -7,7 +7,7 @@
 #  credit_id          :bigint(8)
 #  starts_at          :date
 #  ends_at            :date
-#  status             :integer          default(0)
+#  status             :integer          default("opened")
 #  sum                :decimal(15, 2)   default(0.0)
 #  percent_account_id :integer
 #  current_account_id :integer
