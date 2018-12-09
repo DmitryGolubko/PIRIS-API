@@ -1,4 +1,4 @@
-class AccountsController < ApplicationController
+class AccountsController < BaseController
   before_action :set_account, only: %i[show]
 
   # GET /accounts

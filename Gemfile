@@ -40,6 +40,7 @@ gem 'country_select', '~> 3.1'
 gem 'rack-cors', require: 'rack/cors'
 gem 'enum_help'
 gem 'whenever', require: false
+gem 'jwt'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

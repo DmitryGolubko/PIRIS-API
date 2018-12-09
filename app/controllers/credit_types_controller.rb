@@ -1,4 +1,4 @@
-class CreditTypesController < ApplicationController
+class CreditTypesController < BaseController
   before_action :set_credit_type, only: %i[show update destroy]
 
   # GET /credit_types

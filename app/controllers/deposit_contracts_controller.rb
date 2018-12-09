@@ -1,4 +1,4 @@
-class DepositContractsController < ApplicationController
+class DepositContractsController < BaseController
   # POST /deposit_contracts
   def create
     @deposit_contract, @transactions = DepositContractService.create(deposit_contract_params)

@@ -1,4 +1,4 @@
-class DepositsController < ApplicationController
+class DepositsController < BaseController
   before_action :set_deposit, only: %i[show update destroy]
 
   # GET /deposits

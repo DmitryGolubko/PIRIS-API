@@ -22,5 +22,6 @@ class DepositContract < ApplicationRecord
   belongs_to :percent_account, class_name: 'Account', optional: true
 
   validates_presence_of :client, :deposit, :starts_at, :sum
+  validates :sum, numericality: { greater_than: 0 }
   enum status: %w[opened closed]
 end

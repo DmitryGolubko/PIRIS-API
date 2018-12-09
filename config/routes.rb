@@ -12,6 +12,14 @@ Rails.application.routes.draw do
   resources :accounts, only: %i[index show]
   resources :credit_contracts, only: %i[create show]
   resources :deposit_contracts, only: %i[create show]
+  get 'route_to_the_dream', controller: :bank
+  namespace :atm do
+    post 'login'
+    post 'balance'
+    post 'credit_withdraw'
+    post 'credit_payment'
+    post 'deposit_withdraw'
+  end
   namespace :bank do
     get 'close_day'
   end

@@ -15,8 +15,16 @@ class Transaction < ApplicationRecord
   belongs_to :destination_account, class_name: 'Account', optional: true
 
   validates_presence_of :sum
+  validates :sum, numericality: { greater_or_equal_than: 0 }
+
+  validate :positive_balance
 
   after_create :make_destination_transaction, :make_source_transaction
+
+  def positive_balance
+    errors.add(:base, 'sum cannot be more than balance') if source_account&.credit? && source_account&.balance < sum
+    # errors.add(:base, 'sum cannot be more than start amount') if destination_account&.deposit? && destination_account&. < sum
+  end
 
   def make_destination_transaction
     return if destination_account.nil?

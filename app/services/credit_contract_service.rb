@@ -17,20 +17,9 @@ class CreditContractService
   end
 
   def self.make_transactions(credit_contract, credit)
-    cashbox = Account.find_by(account_type: 'cashbox', currency: credit.currency)
     development_fund = Account.find_by(account_type: 'development_fund', currency: credit.currency)
     transactions = []
     transactions << Transaction.create!(sum: credit_contract.sum, source_account: development_fund,
                                         destination_account: credit_contract.current_account)
-    transactions << Transaction.create!(sum: credit_contract.sum, source_account: credit_contract.current_account,
-                                        destination_account: cashbox)
-    transactions << Transaction.create!(sum: credit_contract.sum, source_account: cashbox)
   end
-
-  # def self.close(deposit_contract, transactions)
-  #   development_fund = Account.find_by(account_type: 'development_fund', currency: deposit_contract.deposit.currency)
-  #   transactions << Transaction.create!(sum: deposit_contract.sum, source_account: development_fund,
-  #                                       destination_account: deposit_contract.current_account)
-  #   deposit_contract.closed!
-  # end
 end

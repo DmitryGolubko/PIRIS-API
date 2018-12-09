@@ -1,4 +1,4 @@
-class DepositTypesController < ApplicationController
+class DepositTypesController < BaseController
   before_action :set_deposit_type, only: %i[show update destroy]
 
   # GET /deposit_types

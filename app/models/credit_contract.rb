@@ -23,6 +23,7 @@ class CreditContract < ApplicationRecord
 
   validates_presence_of :client, :credit, :starts_at, :sum
   validate :less_then_credit_max_amount
+  validates :sum, numericality: { greater_than: 0 }
   enum status: %w[opened closed]
 
   def less_then_credit_max_amount

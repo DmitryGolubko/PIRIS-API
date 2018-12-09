@@ -14,6 +14,7 @@
 #  credit       :decimal(25, 10)  default(0.0)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  pin          :integer
 #
 
 class Account < ApplicationRecord
@@ -69,6 +70,11 @@ class Account < ApplicationRecord
 
     self.number = "#{ACCOUNT_NUMBER_CODES[account_type.to_sym]}#{format('%04d', client_id)}#{format('%04d', id)}1"
     self.code = ACCOUNT_NUMBER_CODES[account_type.to_sym]
+    self.pin = rand(1000..9999)
     save
+  end
+
+  def balance
+    debit + credit
   end
 end

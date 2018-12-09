@@ -1,4 +1,4 @@
-class CreditContractsController < ApplicationController
+class CreditContractsController < BaseController
   # POST /credit_contracts
   def create
     @credit_contract, @transactions = CreditContractService.create(credit_contract_params)

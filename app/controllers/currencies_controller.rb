@@ -1,4 +1,4 @@
-class CurrenciesController < ApplicationController
+class CurrenciesController < BaseController
   before_action :set_currency, only: %i[show update destroy]
 
   # GET /currencies
