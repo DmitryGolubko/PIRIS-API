@@ -4,11 +4,13 @@ class AtmController < BaseController
   before_action :find_account, only: %i[balance credit_withdraw credit_payment deposit_withdraw]
 
   def login
-    if Account.find_by(login_params).present?
+    if !Account.find_by(number: login_params[:number]).present?
+      render json: { error: 'account number is invalid' }.to_json, status: 404
+    elsif !Account.find_by(pin: login_params[:pin]).present?
+      render json: { error: 'pin code is invalid' }.to_json, status: 404
+    else
       response.headers['token'] = JWT.encode(login_params.to_json, nil, 'none')
       render json: {}
-    else
-      render json: { error: 'not found' }.to_json, status: 404
     end
   end
 
@@ -17,7 +19,7 @@ class AtmController < BaseController
       render json: { account: { id: @account.id, name: @account.name, balance: @account.balance, debit: @account.debit,
                                 credit: @account.credit } }
     else
-      render json: { error: 'not found' }.to_json, status: 404
+      render json: {}, status: 401
     end
   end
 
@@ -26,7 +28,7 @@ class AtmController < BaseController
       @transactions = ATMService.credit_withdraw(credit_action_params[:amount], @account)
       render json: { transactions: @transactions }
     else
-      render json: { error: 'not found' }.to_json, status: 404
+      render json: {}, status: 401
     end
   end
 
@@ -35,7 +37,7 @@ class AtmController < BaseController
       @transactions = ATMService.credit_payment(credit_action_params[:amount], @account)
       render json: { transactions: @transactions }
     else
-      render json: { error: 'not found' }.to_json, status: 404
+      render json: {}, status: 401
     end
   end
 
@@ -44,7 +46,7 @@ class AtmController < BaseController
       @transactions = ATMService.deposit_withdraw(credit_action_params[:amount], @account)
       render json: { transactions: @transactions }
     else
-      render json: { error: 'not found' }.to_json, status: 404
+      render json: {}, status: 401
     end
   end
 
