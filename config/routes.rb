@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get 'route_to_the_dream', controller: :bank
   namespace :atm do
     post 'login'
-    post 'balance'
+    get 'balance'
     post 'credit_withdraw'
     post 'credit_payment'
     post 'deposit_withdraw'
