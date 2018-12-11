@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181203204126) do
+ActiveRecord::Schema.define(version: 20181211201209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20181203204126) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin"
+    t.integer "login_attempts", default: 0
+    t.boolean "blocked", default: false
     t.index ["client_id"], name: "index_accounts_on_client_id"
     t.index ["currency_id"], name: "index_accounts_on_currency_id"
   end

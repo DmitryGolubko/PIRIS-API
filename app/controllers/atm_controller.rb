@@ -6,9 +6,16 @@ class AtmController < BaseController
   def login
     if !Account.find_by(number: login_params[:number]).present?
       render json: { error: 'account number is invalid' }.to_json, status: 404
+    elsif Account.find_by(number: login_params[:number]).login_attempts >= 3
+      Account.find_by(number: login_params[:number]).update_attributes(blocked: true)
+      render json: { error: 'account is blocked' }.to_json, status: 401
     elsif !Account.find_by(pin: login_params[:pin]).present?
-      render json: { error: 'pin code is invalid' }.to_json, status: 404
+      Account.find_by(number: login_params[:number]).
+        update_attributes(login_attempts: Account.find_by(number: login_params[:number]).login_attempts + 1)
+      render json: { error: 'pin code is invalid',
+                     attempts_left: 3 - Account.find_by(number: login_params[:number]).login_attempts }.to_json, status: 404
     else
+      Account.find_by(number: login_params[:number]).update_attributes(login_attempts: 0)
       response.headers['token'] = JWT.encode(login_params.to_json, nil, 'none')
       render json: {}
     end
