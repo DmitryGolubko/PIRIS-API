@@ -59,6 +59,6 @@ class AtmController < BaseController
   end
 
   def login_params
-    params.require(:login).permit(:id, :pin)
+    params.require(:login).permit(:number, :pin)
   end
 end
