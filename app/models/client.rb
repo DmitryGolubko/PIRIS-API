@@ -46,6 +46,7 @@ class Client < ApplicationRecord
   belongs_to :civil_status
   belongs_to :disability
   has_one :deposit_contract
+  has_one :credit_contract
   has_many :accounts
   enum sex: %w[male female]
 

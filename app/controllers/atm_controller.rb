@@ -16,8 +16,7 @@ class AtmController < BaseController
                      attempts_left: 3 - Account.find_by(number: login_params[:number]).login_attempts }.to_json, status: 404
     else
       Account.find_by(number: login_params[:number]).update_attributes(login_attempts: 0)
-      response.headers['token'] = JWT.encode(login_params.to_json, nil, 'none')
-      render json: {}
+      render json: { token: JWT.encode(login_params.to_json, nil, 'none') }
     end
   end
 
@@ -32,8 +31,12 @@ class AtmController < BaseController
 
   def credit_withdraw
     if @account.present? && @account.name.include?('Current account') && @account.credit?
-      @transactions = ATMService.credit_withdraw(credit_action_params[:amount], @account)
-      render json: { transactions: @transactions }
+      @transactions, @errors = ATMService.credit_withdraw(credit_action_params[:amount], @account)
+      if @errors.empty?
+        render json: { transactions: @transactions }
+      else
+        render json: { errors: @errors }, status: 400
+      end
     else
       render json: {}, status: 401
     end
@@ -41,8 +44,12 @@ class AtmController < BaseController
 
   def credit_payment
     if @account.present? && @account.name.include?('Current account') && @account.credit?
-      @transactions = ATMService.credit_payment(credit_action_params[:amount], @account)
-      render json: { transactions: @transactions }
+      @transactions, @errors, @messages = ATMService.credit_payment(credit_action_params[:amount], @account)
+      if @errors.empty?
+        render json: { transactions: @transactions, messages: @messages }
+      else
+        render json: { errors: @errors }, status: 400
+      end
     else
       render json: {}, status: 401
     end
@@ -50,8 +57,12 @@ class AtmController < BaseController
 
   def deposit_withdraw
     if @account.present? && @account.name.include?('Current account') && @account.deposit?
-      @transactions = ATMService.deposit_withdraw(credit_action_params[:amount], @account)
-      render json: { transactions: @transactions }
+      @transactions, @errors = ATMService.deposit_withdraw(credit_action_params[:amount], @account)
+      if @errors.empty?
+        render json: { transactions: @transactions }
+      else
+        render json: { errors: @errors }, status: 400
+      end
     else
       render json: {}, status: 401
     end
