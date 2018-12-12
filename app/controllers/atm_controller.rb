@@ -16,7 +16,8 @@ class AtmController < BaseController
                      attempts_left: 3 - Account.find_by(number: login_params[:number]).login_attempts }.to_json, status: 404
     else
       Account.find_by(number: login_params[:number]).update_attributes(login_attempts: 0)
-      render json: { token: JWT.encode(login_params.to_json, nil, 'none') }
+      render json: { token: JWT.encode(login_params.to_json, nil, 'none'),
+                     card_type: Account.find_by(number: login_params[:number]).account_type }
     end
   end
 
