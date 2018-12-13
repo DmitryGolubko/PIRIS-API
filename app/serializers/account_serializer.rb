@@ -20,6 +20,6 @@
 #
 
 class AccountSerializer < ActiveModel::Serializer
-  attributes :id, :name, :number, :code, :activity, :account_type, :debit, :credit, :client_id
+  attributes :id, :name, :number, :code, :activity, :account_type, :debit, :credit, :client_id, :pin
   belongs_to :currency
 end
